@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Create() {
 
-  const [task,setTask]=useState();
+  const [task,setTask]=useState("");
 
 const handleAdd=()=>{
     axios.post("http://localhost:3000/add",{task:task})//{key:value}
@@ -13,8 +13,8 @@ const handleAdd=()=>{
 
   return (
     <div className='form'>
-      <input type='text'  onChange={(e)=>setTask(e.target.value)} placeholder='Enter the task'/>
-      <button onClick={handleAdd}>Add task</button>
+      <input  className="input" type='text'  onChange={(e)=>setTask(e.target.value)} placeholder='Enter the task'/>
+      <button  className="btn" onClick={handleAdd}>Add task</button>
     </div>
   )
 }
