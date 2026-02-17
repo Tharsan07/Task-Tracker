@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Create from "./Create";
 import axios from 'axios';
+import { FaTrash } from "react-icons/fa";
 
 function Home() {
 
@@ -25,9 +26,12 @@ function Home() {
         ):
         (
             todo.map( todo => (
-                <div className="todo-item">
+                <div className="todo-item"  key={todo._id}>
+                  <input type="checkbox" />
                     {todo.task}
+                     <FaTrash className="delete-icon" />
                 </div>
+                
             ))
         )
       }
