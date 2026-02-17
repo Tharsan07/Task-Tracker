@@ -28,6 +28,20 @@ app.get('/get',(req,res)=>{
     .catch(error => res.json(error))
 })
 
+app.put('/update/:id',(req,res)=>{
+    const {id}=req.params;
+    TodoModel.findByIdAndUpdate({_id:id},{done:true})
+    .then(result => res.json(result))
+    .catch(error => res.json(error))
+})
+
+app.delete('/delete/:id', (req, res) => {
+  const { id } = req.params;
+
+  TodoModel.findByIdAndDelete(id)
+    .then(result => res.json(result))
+    .catch(error => res.json(error));
+});
 app.listen(3000,()=>{
     console.log("Server is running on 3000");
 });

@@ -86,3 +86,7 @@
   color: red;
   cursor: pointer;
 }
+.strike {
+  text-decoration: line-through;
+  color: gray;
+}

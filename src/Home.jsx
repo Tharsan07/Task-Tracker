@@ -14,26 +14,57 @@ function Home() {
     
   },[])
 
+  const handleEdit = (id) => {
+  axios.put(`http://localhost:3000/update/${id}`)
+    .then(() => {
+      setTodo(prev =>
+        prev.map(item =>
+          item._id === id
+            ? { ...item, done: !item.done }
+            : item
+        )
+      );
+    })
+    .catch(err => console.log(err));
+};
+
+
+const handleDelete = (id) => {
+  axios.delete(`http://localhost:3000/delete/${id}`)
+    .then(() => {
+      setTodo(prev => prev.filter(item => item._id !== id));
+    })
+    .catch(err => console.log(err));
+
+};
   return (
     <div className="container">
       <h2 className="title">ToDo List</h2>
 
-      <Create />
+      <Create setTodo={setTodo} />
 
       {
         todo.length === 0 ? (
             <div className="empty"><h4>No record found</h4></div>
         ):
         (
-            todo.map( todo => (
-                <div className="todo-item"  key={todo._id}>
-                  <input type="checkbox" />
-                    {todo.task}
-                     <FaTrash className="delete-icon" />
-                </div>
-                
-            ))
-        )
+  todo.map((todo) => (
+    <div className="todo-item" key={todo._id}>
+      <input
+  type="checkbox"
+  checked={todo.done}
+  onChange={() => handleEdit(todo._id)}
+/>
+
+      <span className={todo.done ? "strike" : ""}>
+        {todo.task}
+      </span>
+
+      <FaTrash onClick={()=>handleDelete(todo._id)} className="delete-icon" />
+    </div>
+  ))
+)
+
       }
 
     </div>
